@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ITEMS_PER_PAGE } from "../../../app/constants";
+import { ITEMS_PER_PAGE, applyDiscount } from "../../../app/constants";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAllOrdersAsync,
@@ -74,6 +74,7 @@ function AdminOrders() {
     dispatch(fetchAllOrdersAsync({ sort, pagination }));
   }, [dispatch, page, sort]);
 
+  console.log(orders,totalOrders)
   return (
     <div className="overflow-x-auto">
       <div className="bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
@@ -181,15 +182,15 @@ function AdminOrders() {
                             />
                           </div>
                           <span>
-                            {item.product.title} - #{item.quantity} - $
-                            {item.product.discountPrice}
+                            {item.product.title} - #{item.quantity} - ₹
+                            {applyDiscount(item.product.price,item.product.discountPercentage)}
                           </span>
                         </div>
                       ))}
                     </td>
                     <td className="py-3 px-0 text-center">
                       <div className="flex items-center justify-center">
-                        ${order.totalAmount}
+                        ₹ {order.totalAmount}
                       </div>
                     </td>
                     <td className="py-3 px-0 text-center">

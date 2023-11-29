@@ -12,6 +12,7 @@ import { addToCartAsync, selectItems } from '../../cart/cartSlice';
 import { selectLoggedInUser } from '../../auth/authSlice';
 import { useAlert } from 'react-alert';
 import { Grid } from 'react-loader-spinner';
+import { applyDiscount } from '../../../app/constants';
 
 
 function classNames(...classes) {
@@ -151,11 +152,11 @@ export default function ProductDetail() {
             {/* Options */}
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
-              <p className="text-xl line-through tracking-tight text-gray-900">
-                ${product.price}
+              <p className="text-xl line-through tracking-tight text-red-700">
+                ₹ {product.price}
               </p>
-              <p className="text-3xl tracking-tight text-gray-900">
-                ${product.discountPrice}
+              <p className="text-3xl tracking-tight text-green-700">
+                ₹ {applyDiscount(product.price,product.discountPercentage)}
               </p>
 
               {/* Reviews */}
@@ -168,8 +169,8 @@ export default function ProductDetail() {
                         key={rating}
                         className={classNames(
                           product.rating > rating
-                            ? 'text-gray-900'
-                            : 'text-gray-200',
+                            ? 'text-yellow-700'
+                            : 'text-gray-800',
                           'h-5 w-5 flex-shrink-0'
                         )}
                         aria-hidden="true"

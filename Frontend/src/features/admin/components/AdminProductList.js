@@ -24,7 +24,7 @@ import {
   PlusIcon,
   Squares2X2Icon,
 } from '@heroicons/react/20/solid';
-import { ITEMS_PER_PAGE } from '../../../app/constants';
+import { ITEMS_PER_PAGE, applyDiscount } from '../../../app/constants';
 
 const sortOptions = [
   { name: 'Best Rating', sort: 'rating', order: 'desc', current: false },
@@ -494,8 +494,8 @@ function ProductGrid({ products }) {
                   </div>
                   <div className="mt-4 flex justify-between">
                     <div>
-                      <h3 className="text-sm text-gray-700">
-                        <div href={product.thumbnail}>
+                      <h3 className="text-sm text-gray-700 w-44 ">
+                        <div href={product.thumbnail} className='truncate'>
                           <span
                             aria-hidden="true"
                             className="absolute inset-0"
@@ -503,17 +503,17 @@ function ProductGrid({ products }) {
                           {product.title}
                         </div>
                       </h3>
-                      <p className="mt-1 text-sm text-gray-500">
+                      <p className="mt-1 text-sm text-yellow-400">
                         <StarIcon className="w-6 h-6 inline"></StarIcon>
                         <span className=" align-bottom">{product.rating}</span>
                       </p>
                     </div>
                     <div>
-                      <p className="text-sm block font-medium text-gray-900">
-                        ${product.discountPrice}
+                      <p className="text-sm block font-medium text-green-700">
+                        ₹ {applyDiscount(product.price,product.discountPercentage)}
                       </p>
-                      <p className="text-sm block line-through font-medium text-gray-400">
-                        ${product.price}
+                      <p className="text-sm block line-through font-medium text-red-700">
+                        ₹ {product.price}
                       </p>
                     </div>
                   </div>

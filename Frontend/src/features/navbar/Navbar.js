@@ -3,14 +3,14 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import {
   Bars3Icon,
   ShoppingCartIcon,
-  XMarkIcon,
+  XMarkIcon
 } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectItems } from '../cart/cartSlice';
 import { selectLoggedInUser } from '../auth/authSlice';
 import { selectUserInfo } from '../user/userSlice';
-
+import UserIcon from  '../../assets/UserIcon.png'
 
 const navigation = [
   { name: 'Products', link: '/', user: true },
@@ -31,7 +31,6 @@ function classNames(...classes) {
 function NavBar({ children }) {
   const items = useSelector(selectItems);
   const userInfo = useSelector(selectUserInfo);
-
   return (
     <>
       {userInfo &&<div className="min-h-full">
@@ -97,11 +96,13 @@ function NavBar({ children }) {
                         <div>
                           <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                             <span className="sr-only">Open user menu</span>
+                            
                             <img
                               className="h-8 w-8 rounded-full"
-                              src={userInfo.imageUrl}
+                              src={userInfo.imageUrl || UserIcon}
                               alt=""
                             />
+                            
                           </Menu.Button>
                         </div>
                         <Transition
@@ -229,7 +230,7 @@ function NavBar({ children }) {
         <header className="bg-white shadow">
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-              E-Commerce
+              MyIndianCart
             </h1>
           </div>
         </header>

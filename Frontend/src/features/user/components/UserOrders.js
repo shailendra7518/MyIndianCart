@@ -7,12 +7,13 @@ import {
   selectUserOrders,
 } from '../userSlice';
 import { Grid } from 'react-loader-spinner';
+import { applyDiscount } from '../../../app/constants';
 
 export default function UserOrders() {
   const dispatch = useDispatch();
   const orders = useSelector(selectUserOrders);
   const status = useSelector(selectUserInfoStatus);
-
+console.log(orders)
   useEffect(() => {
     dispatch(fetchLoggedInUserOrderAsync());
   }, [dispatch]);
@@ -48,7 +49,7 @@ export default function UserOrders() {
                               <h3>
                                 <a href={item.product.id}>{item.product.title}</a>
                               </h3>
-                              <p className="ml-4">${item.product.discountPrice}</p>
+                              <p className="ml-4">₹ {applyDiscount(item.product.price,item.product.discountPercentage)}</p>
                             </div>
                             <p className="mt-1 text-sm text-gray-500">
                               {item.product.brand}

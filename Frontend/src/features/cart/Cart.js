@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import { Grid } from 'react-loader-spinner';
 import Modal from '../common/Modal';
+import { applyDiscount } from '../../app/constants';
 
 export default function Cart() {
   const dispatch = useDispatch();
@@ -19,28 +20,7 @@ export default function Cart() {
   const status = useSelector(selectCartStatus);
   const cartLoaded = useSelector(selectCartLoaded)
   const [openModal, setOpenModal] = useState(null);
-  console.log("Cart item", items[0]?.product)
   
-
-const applyDiscount = (price, discountPercentage) => {
-  if (price < 0 || discountPercentage < 0 || discountPercentage > 100) {
-    // Handle invalid input
-    console.error(
-      "Invalid input: Price and discount percentage must be non-negative, and discount percentage must be between 0 and 100."
-    );
-    return null;
-  }
-
-  // Calculate the discount amount
-  const discountAmount = (price * discountPercentage) / 100;
-
-  // Calculate the final price after applying the discount
-  const finalPrice = price - discountAmount;
-
-  return Math.round(finalPrice);
-};
-
-
   const totalAmount = items.reduce(
     (amount, item) =>
       applyDiscount(item.product.price, item.product.discountPercentage) *
